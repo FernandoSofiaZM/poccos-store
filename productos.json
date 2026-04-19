@@ -1,23 +1,11 @@
-[
-  {
-    "nombre": "Cadena Elegante",
-    "precio": 250,
-    "categoria": "cadenas",
-    "imagen": "https://via.placeholder.com/200",
-    "estado": "Disponible"
-  },
-  {
-    "nombre": "Pulsera Dorada",
-    "precio": 180,
-    "categoria": "pulseras",
-    "imagen": "https://via.placeholder.com/200",
-    "estado": "Disponible"
-  },
-  {
-    "nombre": "Jueguito Corazón",
-    "precio": 300,
-    "categoria": "jueguitos",
-    "imagen": "https://via.placeholder.com/200",
-    "estado": "Agotado"
-  }
-]
+{
+  "items": [
+    {
+      "nombre": "Cadena Elegante",
+      "precio": 250,
+      "categoria": "cadenas",
+      "imagen": "images/uploads/cadena.jpg",
+      "disponible": true
+    }
+  ]
+}
