@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main          # si tu rama principal se llama master, cámbiala
+  branch: main
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
