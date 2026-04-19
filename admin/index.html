@@ -8,20 +8,14 @@
 </head>
 <body>
   <script>
-    // Esperar a que el CMS se cargue completamente
-    window.CMS_MANUAL_INIT = true; // Evita auto-inicialización temprana
-    document.addEventListener('DOMContentLoaded', function() {
-      // Si CMS ya está definido, lo usamos; si no, esperamos un poco más
-      function initCMS() {
-        if (typeof CMS !== 'undefined') {
-          CMS.registerPreviewStyle("/styles.css");
-          CMS.init(); // Inicializa manualmente
-        } else {
-          setTimeout(initCMS, 100);
-        }
-      }
-      initCMS();
-    });
+    // Este script asegura que el CMS se inicie sin problemas.
+    if (window.CMS) {
+      window.CMS.init();
+    } else {
+      window.addEventListener('load', function() {
+        if (window.CMS) window.CMS.init();
+      });
+    }
   </script>
 </body>
 </html>
