@@ -1,58 +1,80 @@
-async function cargarProductos() {
-    const res = await fetch("productos.json");
-    const productos = await res.json();
-    window.lista = productos;
-    mostrarProductos(productos);
+let carrito = [];
+let productos = [];
+
+fetch("productos.json")
+.then(res => res.json())
+.then(data => {
+  productos = data.items;
+  mostrar(productos);
+});
+
+function mostrar(lista){
+  const cont = document.getElementById("productos");
+  cont.innerHTML = "";
+
+  lista.forEach(p => {
+    cont.innerHTML += `
+      <div class="card">
+        <img src="${p.imagen}">
+        <h3>${p.nombre}</h3>
+        <p>L ${p.precio}</p>
+        ${
+          p.disponible
+          ? `<button onclick="agregar('${p.nombre}', ${p.precio})">Agregar</button>`
+          : `<button class="agotado">Agotado</button>`
+        }
+      </div>
+    `;
+  });
 }
 
-function mostrarProductos(lista) {
-    const contenedor = document.getElementById("productos");
-    contenedor.innerHTML = "";
-
-    lista.forEach(p => {
-        contenedor.innerHTML += `
-        <div class="card">
-            <img src="${p.imagen}">
-            <h3>${p.nombre}</h3>
-            <p>L.${p.precio}</p>
-            <p class="${p.estado === 'Disponible' ? 'disponible':'agotado'}">${p.estado}</p>
-            ${
-                p.estado === "Disponible"
-                ? `<button onclick="comprar('${p.nombre}',${p.precio})">Comprar</button>`
-                : `<p class="agotado">No disponible</p>`
-            }
-        </div>`;
-    });
+function agregar(nombre, precio){
+  carrito.push({nombre, precio});
+  actualizar();
 }
 
-function filtrar(cat) {
-    if(cat === "todos") {
-        mostrarProductos(window.lista);
-    } else {
-        mostrarProductos(window.lista.filter(p => p.categoria === cat));
-    }
+function actualizar(){
+  document.getElementById("contador").textContent = carrito.length;
 }
 
-function comprar(nombre, precio) {
-    let carrito = [];
+function abrirCarrito(){
+  document.getElementById("modalCarrito").style.display = "block";
+  let lista = document.getElementById("listaCarrito");
+  lista.innerHTML = "";
+  let total = 0;
 
-function agregarAlCarrito(nombre, precio) {
-  carrito.push({ nombre, precio });
-  alert("Producto agregado");
-}
-
-function comprarWhatsApp() {
-  let mensaje = "Hola, quiero cotizar:\n";
-
-  carrito.forEach(p => {
-    mensaje += `- ${p.nombre} L${p.precio}\n`;
+  carrito.forEach(p=>{
+    lista.innerHTML += `<li>${p.nombre} - L${p.precio}</li>`;
+    total += p.precio;
   });
 
-  let url = "https://wa.me/504XXXXXXXX?text=" + encodeURIComponent(mensaje);
-  window.open(url, "_blank");
-}
-    const mensaje = `Hola, quiero comprar:%0AProducto: ${nombre}%0APrecio: L.${precio}`;
-    window.open(`https://wa.me/504TU_NUMERO?text=${mensaje}`);
+  document.getElementById("total").textContent = "Total: L " + total;
 }
 
-cargarProductos();
+function cerrarCarrito(){
+  document.getElementById("modalCarrito").style.display = "none";
+}
+
+function comprarWhatsApp(){
+  let mensaje = "Hola, quiero cotizar:\n";
+  let total = 0;
+
+  carrito.forEach(p=>{
+    mensaje += `- ${p.nombre} L${p.precio}\n`;
+    total += p.precio;
+  });
+
+  mensaje += `Total: L${total}`;
+
+  window.open("https://wa.me/504XXXXXXXX?text=" + encodeURIComponent(mensaje));
+}
+
+function filtrar(cat){
+  if(cat==="todos") mostrar(productos);
+  else mostrar(productos.filter(p=>p.categoria===cat));
+}
+
+function buscar(){
+  let texto = document.getElementById("buscador").value.toLowerCase();
+  mostrar(productos.filter(p=>p.nombre.toLowerCase().includes(texto)));
+}
