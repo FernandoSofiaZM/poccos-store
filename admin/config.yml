@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main # Asegúrate de que sea "main" o "master"
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -8,20 +8,12 @@ public_folder: "/images/uploads"
 collections:
   - name: "productos"
     label: "Productos"
-    files:
-      - label: "Lista de productos"
-        name: "productos"
-        file: "productos.json"
-        format: "json"
-        fields:
-          - label: "Productos"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.nombre}} - L{{fields.precio}}"
-            fields:
-              - { label: "Nombre", name: "nombre", widget: "string" }
-              - { label: "Precio (Lempiras)", name: "precio", widget: "number", value_type: "int" }
-              - { label: "Imagen", name: "imagen", widget: "image", media_folder: "/images/uploads", public_folder: "/images/uploads" }
-              - { label: "Disponible", name: "disponible", widget: "boolean", default: true }
-              - { label: "Categoría", name: "categoria", widget: "select", options: ["cadenas", "pulseras", "jueguitos"] }
-              - { label: "Descripción", name: "descripcion", widget: "text", required: false }
+    folder: "productos"
+    create: true
+    fields:
+      - { label: "Nombre", name: "nombre", widget: "string" }
+      - { label: "Precio", name: "precio", widget: "number" }
+      - { label: "Imagen", name: "imagen", widget: "image" }
+      - { label: "Disponible", name: "disponible", widget: "boolean", default: true }
+      - { label: "Categoría", name: "categoria", widget: "string" }
+      - { label: "Descripción", name: "descripcion", widget: "text", required: false }
