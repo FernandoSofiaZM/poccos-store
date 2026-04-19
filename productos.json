@@ -3,9 +3,10 @@
     {
       "nombre": "Cadena Elegante",
       "precio": 250,
-      "categoria": "cadenas",
       "imagen": "images/uploads/cadena.jpg",
-      "disponible": true
+      "disponible": true,
+      "categoria": "cadenas",
+      "descripcion": "Cadena de plata brillante, ideal para ocasiones especiales."
     }
   ]
 }
