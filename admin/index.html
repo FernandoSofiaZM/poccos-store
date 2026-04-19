@@ -8,8 +8,20 @@
 </head>
 <body>
   <script>
-    // Opcional: puedes personalizar la barra lateral
-    CMS.registerPreviewStyle("/styles.css");
+    // Esperar a que el CMS se cargue completamente
+    window.CMS_MANUAL_INIT = true; // Evita auto-inicialización temprana
+    document.addEventListener('DOMContentLoaded', function() {
+      // Si CMS ya está definido, lo usamos; si no, esperamos un poco más
+      function initCMS() {
+        if (typeof CMS !== 'undefined') {
+          CMS.registerPreviewStyle("/styles.css");
+          CMS.init(); // Inicializa manualmente
+        } else {
+          setTimeout(initCMS, 100);
+        }
+      }
+      initCMS();
+    });
   </script>
 </body>
 </html>
