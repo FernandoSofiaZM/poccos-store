@@ -2,31 +2,45 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>POCCO'STORE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POCCO'S STORE</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
 <header>
-    <h1>💜 POCCOS'STORE</h1>
-    <p>Accesorios que hablan por ti</p>
+  <h1>💜 POCCO'S STORE</h1>
+  <input type="text" id="buscador" placeholder="Buscar productos..." onkeyup="buscar()">
 </header>
 
 <nav>
-    <button onclick="filtrar('todos')">Todos</button>
-    <button onclick="filtrar('cadenas')">Cadenas</button>
-    <button onclick="filtrar('pulseras')">Pulseras</button>
-    <button onclick="filtrar('jueguitos')">Jueguitos</button>
+  <button onclick="filtrar('todos')">Todos</button>
+  <button onclick="filtrar('cadenas')">Cadenas</button>
+  <button onclick="filtrar('pulseras')">Pulseras</button>
+  <button onclick="filtrar('jueguitos')">Jueguitos</button>
 </nav>
 
-<section id="productos"></section>
+<main>
+  <section id="productos"></section>
+</main>
+
+<div class="carrito-box">
+  🛒 <span id="contador">0</span>
+  <button onclick="abrirCarrito()">Ver carrito</button>
+</div>
+
+<div id="modalCarrito" class="modal">
+  <div class="modal-content">
+    <h2>Tu carrito</h2>
+    <ul id="listaCarrito"></ul>
+    <p id="total"></p>
+    <button onclick="comprarWhatsApp()">Cotizar por WhatsApp</button>
+    <button onclick="cerrarCarrito()">Cerrar</button>
+  </div>
+</div>
 
 <footer>
-    <h3>Contáctanos</h3>
-    <a href="https://wa.me/504TU_NUMERO">WhatsApp</a>
-    <a href="#">Instagram</a>
-    <a href="#">Facebook</a>
+  <p>© POCCO'S STORE</p>
 </footer>
 
 <script src="script.js"></script>
