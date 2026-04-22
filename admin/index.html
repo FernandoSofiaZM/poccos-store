@@ -1,9 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <title>Admin</title>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <meta charset="UTF-8">
+  <title>Admin Seguro</title>
+  <style>
+    body { font-family: Arial; background: #f3f3f3; }
+    .box { max-width: 400px; margin: 100px auto; padding: 20px; background: white; border-radius: 10px; }
+    input, button { width: 100%; padding: 10px; margin-top: 10px; }
+    #panel { display: none; }
+  </style>
 </head>
-<body></body>
+<body>
+
+<div id="login" class="box">
+  <h2>Login Admin</h2>
+  <input type="password" id="pass" placeholder="Contraseña">
+  <button onclick="login()">Entrar</button>
+</div>
+
+<div id="panel" class="box">
+  <h2>Panel Admin</h2>
+
+  <input type="text" id="nombre" placeholder="Nombre">
+  <input type="text" id="precio" placeholder="Precio">
+  <input type="text" id="categoria" placeholder="Categoría">
+  <input type="file" id="imagen">
+
+  <button onclick="guardar()">Agregar producto</button>
+  <button onclick="logout()">Cerrar sesión</button>
+
+  <h3>Productos:</h3>
+  <ul id="lista"></ul>
+</div>
+
+<script>
+const PASSWORD = "1234"; // 🔥 cámbiala
+
+function login() {
+  const pass = document.getElementById("pass").value;
+  if (pass === PASSWORD) {
+    localStorage.setItem("admin", "true");
+    mostrarPanel();
+  } else {
+    alert("Contraseña incorrecta");
+  }
+}
+
+function mostrarPanel() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("panel").style.display = "block";
+  cargar();
+}
+
+function logout() {
+  localStorage.removeItem("admin");
+  location.reload();
+}
+
+if (localStorage.getItem("admin") === "true") {
+  mostrarPanel();
+}
+
+function guardar() {
+  const nombre = document.getElementById("nombre").value;
+  const precio = document.getElementById("precio").value;
+  const categoria = document.getElementById("categoria").value;
+  const file = document.getElementById("imagen").files[0];
+
+  if (!file) return alert("Selecciona imagen");
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const producto = {
+      nombre,
+      precio,
+      categoria,
+      imagen: e.target.result
+    };
+
+    let productos = JSON.parse(localStorage.getItem("productos")) || [];
+    productos.push(producto);
+    localStorage.setItem("productos", JSON.stringify(productos));
+
+    cargar();
+  };
+  reader.readAsDataURL(file);
+}
+
+function cargar() {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  let productos = JSON.parse(localStorage.getItem("productos")) || [];
+
+  productos.forEach(p => {
+    const li = document.createElement("li");
+    li.innerHTML = `${p.nombre} - L.${p.precio}`;
+    lista.appendChild(li);
+  });
+}
+</script>
+
+</body>
 </html>
