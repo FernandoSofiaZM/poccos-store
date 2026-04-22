@@ -1,47 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POCCO'S STORE</title>
-<link rel="stylesheet" href="styles.css">
+  <title>Tienda</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <h1>💜 POCCO'S STORE</h1>
-  <input type="text" id="buscador" placeholder="Buscar productos..." onkeyup="buscar()">
-</header>
+<h1>POCCO'S STORE</h1>
 
-<nav>
-  <button onclick="filtrar('todos')">Todos</button>
-  <button onclick="filtrar('cadenas')">Cadenas</button>
-  <button onclick="filtrar('pulseras')">Pulseras</button>
-  <button onclick="filtrar('jueguitos')">Jueguitos</button>
-</nav>
+<form id="formProducto">
+  <input type="text" id="nombre" placeholder="Nombre" required>
+  <input type="number" id="precio" placeholder="Precio" required>
+  <input type="text" id="categoria" placeholder="Categoría" required>
+  <input type="file" id="imagen" accept="image/*" required>
+  <button>Agregar producto</button>
+</form>
 
-<main>
-  <section id="productos"></section>
-</main>
+<hr>
 
-<div class="carrito-box">
-  🛒 <span id="contador">0</span>
-  <button onclick="abrirCarrito()">Ver carrito</button>
-</div>
-
-<div id="modalCarrito" class="modal">
-  <div class="modal-content">
-    <h2>Tu carrito</h2>
-    <ul id="listaCarrito"></ul>
-    <p id="total"></p>
-    <button onclick="comprarWhatsApp()">Cotizar por WhatsApp</button>
-    <button onclick="cerrarCarrito()">Cerrar</button>
-  </div>
-</div>
-
-<footer>
-  <p>© POCCO'S STORE</p>
-</footer>
+<div id="lista"></div>
 
 <script src="script.js"></script>
 </body>
