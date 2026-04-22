@@ -1,11 +1,3 @@
 {
-  "productos": [
-    {
-      "nombre": "Producto ejemplo",
-      "precio": 100,
-      "imagen": "/img/producto1.jpg",
-      "categoria": "General",
-      "disponible": true
-    }
-  ]
+  "productos": []
 }
